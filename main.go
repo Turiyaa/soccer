@@ -68,7 +68,8 @@ type Response struct {
 
 func printTop10Scorer(t time.Time) {
 	//loogly token // TODO: set in the enviroment for security
-	os.Setenv("LOGGLY_TOKEN", "4156602e-1451-4806-a3ad-80c982025fb1")
+	//os.Setenv("LOGGLY_TOKEN", "4156602e-1451-4806-a3ad-80c982025fb1")
+	os.Getenv("LOGGLY_TOKEN")
 	tag := "SoccerScore"
 
 	// Instantiate the loogly Client
@@ -129,5 +130,14 @@ func doEvery(d time.Duration, f func(time.Time)) {
 
 // main function to start the program
 func main() {
-	doEvery(10*time.Second, printTop10Scorer)
+	//doEvery(10*time.Second, printTop10Scorer)
+	print("Hello Ticker")
+
+	ticker := time.NewTimer(time.Second * 10)
+
+	go func() {
+		for t := range ticker.C {
+			fmt.Println("Tick At", t)
+		}
+	}()
 }
