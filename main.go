@@ -70,7 +70,7 @@ type Response struct {
 
 func printTop10Scorer(t time.Time) {
 	//loogly token // TODO: set in the enviroment for security
-	//	os.Setenv("LOGGLY_TOKEN", "")
+	os.Setenv("LOGGLY_TOKEN", "4156602e-1451-4806-a3ad-80c982025fb1")
 	tag := "SoccerScore"
 
 	// Instantiate the loogly Client
@@ -79,7 +79,7 @@ func printTop10Scorer(t time.Time) {
 	// API end point urs (add nultiples)
 	url := "https://api.football-data.org/v2/competitions/PD/scorers"
 	req, err := http.NewRequest("GET", url, nil)
-	req.Header.Add("X-Auth-Token", os.Getenv("API_AUTH_TOKEN"))
+	req.Header.Add("X-Auth-Token", "e42cb6a6ecc949c8897e06d284a55e05")
 
 	// Valid EchoSend (message echoed to console and no error returned)
 	logerr := looglyClient.EchoSend("info", "accessing json objects")
