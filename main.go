@@ -14,9 +14,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	loggly "github.com/jamespearly/loggly"
+	uuid "github.com/satori/go.uuid"
 )
 
 type ObjPlayer struct {
+	UuID           uuid.UUID   `json:"uuid"`
 	ID             int         `json:"id"`
 	Name           string      `json:"name"`
 	FirstName      string      `json:"firstName"`
@@ -127,6 +129,8 @@ func insertIntoDynamoDB(res Response) {
 
 	// insert players into db
 	for i := 0; i < len(res.Scorers); i++ {
+		u1 := uuid.Must(uuid.NewV4())
+		res.Scorers[i].Player.UuID = u1
 		av, err := dynamodbattribute.MarshalMap(res.Scorers[i].Player)
 		if err != nil {
 			fmt.Println("Got error marshalling map:")
